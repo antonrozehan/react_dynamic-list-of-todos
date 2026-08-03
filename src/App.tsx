@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import classNames from 'classnames';
 import 'bulma/css/bulma.css';
 import '@fortawesome/fontawesome-free/css/all.css';
 
@@ -69,13 +70,19 @@ export const App: React.FC = () => {
               <TodoFilter
                 status={status}
                 query={query}
-                onStatusChange={event => setStatus(event.target.value as StatusFilter)}
+                onStatusChange={event =>
+                  setStatus(event.target.value as StatusFilter)
+                }
                 onQueryChange={event => setQuery(event.target.value)}
                 onClearQuery={() => setQuery('')}
               />
             </div>
 
-            <div className="block">
+            <div
+              className={classNames('block', {
+                'is-loading': isLoading,
+              })}
+            >
               {isLoading ? <Loader /> : null}
               {!isLoading && (
                 <TodoList
